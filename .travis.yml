@@ -5,7 +5,7 @@ services:
 before_install:
 - docker pull sanji/mosquitto-dev:latest
 - docker pull sanji/mosquitto-dev:armhf
-- docker images
+- docker run --rm --privileged multiarch/qemu-user-static:register
 script:
 - bash build.sh
 deploy:
