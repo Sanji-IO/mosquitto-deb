@@ -8,7 +8,7 @@ export MOSQ_DEBIAN_URL=http://repo.mosquitto.org/debian/pool/main/m/mosquitto/mo
 rm -rf workspace
 mkdir -p workspace
 cd workspace
-cp Dockerfile workspace/
+cp ../Dockerfile workspace/
 curl -O ${MOSQ_SRC_URL}
 curl -O ${MOSQ_DEBIAN_URL}
 export SRCNAME=`ls mosquitto_*orig*.gz`
