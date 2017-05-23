@@ -12,3 +12,7 @@ before_install:
 script:
 - bash build.sh
 
+addons:
+  artifacts:
+  	paths:
+  	- $(ls workspace/*.deb | tr "\n" ":")
