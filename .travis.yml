@@ -1,18 +1,20 @@
 sudo: required
-
 language: python
-
 services:
 - docker
-
 before_install:
 - docker pull sanji/mosquitto-dev
 - docker images
-
 script:
 - bash build.sh
-
 addons:
   artifacts:
     paths:
     - $(ls workspace/*.deb | tr "\n" ":")
+deploy:
+  provider: releases
+  api_key:
+    secure: sCf9KTRRu97NNjTz1hl/OsyhEIwNq09Qkgy9CZou/i/pgC9Zku+0OyKLr0RXzzW5aiXKR7w3rSphuYa99EiGn+TEGtvA+rgK2Y6ppfv37QVjI+l+50n0tMQK7J0YBLD//PZoKKvuGgCPfaCDd57Gfj4GHXK0YBSFX4P1/OrVs+OhG6puy6HK33gDSPLk0EYZqxuS4bkO7XyI9WLe2iO2lWq41st2iL+6F3LOGPlPAZ7eLM2Ksh2CzXDuyasB37z2ojJU6RhTuoR80xG8IskTeM+u5DCLU6GvVRcz77BAFUHs283HvCh9SwUm+hXEGbv5em6g8ZncfMQrUz5ugvGpszAaQ/yNM4IDG/cHZf0D93reQfI27RLo3xjWle4b+AWSd8n+08Ob1wBoR2fMrXSfpE7OM+DYfkFlpAge30d6BVKVPu5MkcleMcgSNjjXTLKGv4JfjsBb9/FMdr+rijLPRfu6IcnaX6fmlzNv8RHE8VLKzXLevn6vjScSJfjEM+SY9VZxpdNvpG4aSR4TE2yMoGDvBYPk+vEgNS2sMYivTOXpbHcASVGLmtsavEdXcd1FKPHQ7xJPwHQmzlD4oIq7O/un5oqKVcKiKP6VJ5Uzv5bLrmsxH8zKLHE4A976rvIO84aywGxu4nnZaqxgwagt4lEe/lg0YvHHai4No0A3z2o=
+  file: workspace/*.deb
+  on:
+    repo: Sanji-IO/mosquitto-deb
