@@ -8,6 +8,8 @@ export MOSQ_DEBIAN_URL=http://repo.mosquitto.org/debian/pool/main/m/mosquitto/mo
 rm -rf workspace
 mkdir -p workspace
 cd workspace
+wget https://github.com/resin-io/qemu/releases/download/v2.5.50-resin-execve/qemu-execve.gz && gzip -d qemu-execve.gz
+chmod +x qemu-execve
 cp ../Dockerfile .
 curl -O ${MOSQ_SRC_URL}
 curl -O ${MOSQ_DEBIAN_URL}
@@ -17,9 +19,15 @@ export FOLDER=${SRCNAME::-12}
 tar zxvf ${SRCNAME}
 tar xvf ${DEBIANNAME} -C `ls | grep mosquitto-*`
 
-# Build amd64 and arm packages
-# 'docker build -t mosquitto-arm .
-# docker run --name temp-container-name mosquitto-arm /bin/true
-# docker cp temp-container-name:/data `pwd`'
-docker run -it -v `pwd`:/data -w /data/`ls | grep mosquitto-*` --entrypoint /bin/sh.real sanji/mosquitto-dev:armhf debuild --no-lintian -us -uc
-docker run -it -v `pwd`:/data -w /data/`ls | grep mosquitto-*` sanji/mosquitto-dev:latest debuild --no-lintian -us -uc
+# Build armhf packages
+docker run --entrypoint /usr/bin/qemu-arm-static -it \
+    -v `pwd`/qemu-execve:/usr/bin/qemu-arm-static \
+    -v `pwd`:/data \
+    -w /data/`ls | grep mosquitto-*` \
+    sanji/mosquitto-dev:armhf /bin/sh -c "debuild --no-lintian -us -uc"
+
+# Build amd64 packages
+docker run -it -v `pwd`:/data \
+    -w /data/`ls | grep mosquitto-*` \
+    sanji/mosquitto-dev:latest /bin/sh -c "debuild --no-lintian -us -uc"
+
