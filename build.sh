@@ -18,4 +18,4 @@ tar xvf ${DEBIANNAME} -C `ls | grep mosquitto-*`
 
 # Build x86 and arm packages
 docker run -it -v `pwd`:/data -w /data/`ls | grep mosquitto-*` sanji/mosquitto-dev:latest debuild --no-lintian -us -uc
-docker run -it -v `pwd`:/data -w /data/`ls | grep mosquitto-*` --entrypoint /usr/bin/cross-build-start sanji/mosquitto-dev:armhf debuild --no-lintian -us -uc
+docker run -it -v `pwd`:/data -w /data/`ls | grep mosquitto-*` sanji/mosquitto-dev:armhf debuild --no-lintian -us -uc
