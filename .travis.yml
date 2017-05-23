@@ -14,5 +14,5 @@ script:
 
 addons:
   artifacts:
-  	paths:
-  	- $(ls workspace/*.deb | tr "\n" ":")
+    paths:
+    - $(ls workspace/*.deb | tr "\n" ":")
