@@ -17,4 +17,4 @@ deploy:
   file: workspace/*.deb
   on:
     repo: Sanji-IO/mosquitto-deb
-    tags: true
+#    tags: true
