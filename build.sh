@@ -15,4 +15,4 @@ export DEBIANNAME=`ls mosquitto_*.debian.tar.xz`
 export FOLDER=${SRCNAME::-12}
 tar zxvf ${SRCNAME}
 tar xvf ${DEBIANNAME} -C `ls | grep mosquitto-*`
-docker run -it -v `pwd`:/data -w /data/`ls | grep mosquitto-*` mosquitto-dev debuild --no-lintian -us -uc
+docker run -it -v `pwd`:/data -w /data/`ls | grep mosquitto-*` sanji/mosquitto-dev debuild --no-lintian -us -uc
