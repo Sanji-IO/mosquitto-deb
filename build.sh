@@ -16,7 +16,7 @@ export FOLDER=${SRCNAME::-12}
 tar zxvf ${SRCNAME}
 export SRCFOLDER=`ls | grep mosquitto-*`
 tar xvf ${DEBIANNAME} -C "$SRCFOLDER"
-cp ../patches/* $SRCFOLDER/debian/patches
+patch $SRCFOLDER/debian/rules < ../patches/rule.patch
 
 # Build amd64 packages
 docker run -it -v `pwd`:/data \
