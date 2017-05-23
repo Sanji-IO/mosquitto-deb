@@ -1,0 +1,11 @@
+--- workspace/mosquitto-1.4.11/debian/rules	2017-02-21 06:47:13.000000000 +0800
++++ rules	2017-05-24 00:51:08.618670728 +0800
+@@ -3,7 +3,7 @@
+ export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
+ 
+ %:
+-	dh $@
++	dh $@ --parallel
+ 
+ override_dh_installchangelogs:
+ 	dh_installchangelogs ChangeLog.txt
