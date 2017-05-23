@@ -3,14 +3,11 @@ language: python
 services:
 - docker
 before_install:
-- docker pull sanji/mosquitto-dev
+- docker pull sanji/mosquitto-dev:latest
+- docker pull sanji/mosquitto-dev:armhf
 - docker images
 script:
 - bash build.sh
-addons:
-  artifacts:
-    paths:
-    - $(ls workspace/*.deb | tr "\n" ":")
 deploy:
   provider: releases
   skip_cleanup: true
@@ -20,3 +17,4 @@ deploy:
   file: workspace/*.deb
   on:
     repo: Sanji-IO/mosquitto-deb
+    tags: true
