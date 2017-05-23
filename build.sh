@@ -18,8 +18,8 @@ tar zxvf ${SRCNAME}
 tar xvf ${DEBIANNAME} -C `ls | grep mosquitto-*`
 
 # Build amd64 and arm packages
-docker build -t mosquitto-arm .
-docker run --name temp-container-name mosquitto-arm /bin/true
-docker cp temp-container-name:/data `pwd`
-# docker run -it -v `pwd`:/data -w /data/`ls | grep mosquitto-*` sanji/mosquitto-dev:armhf /usr/bin/qemu-arm-static sh -c "debuild --no-lintian -us -uc"
-# docker run -it -v `pwd`:/data -w /data/`ls | grep mosquitto-*` sanji/mosquitto-dev:latest debuild --no-lintian -us -uc
+# 'docker build -t mosquitto-arm .
+# docker run --name temp-container-name mosquitto-arm /bin/true
+# docker cp temp-container-name:/data `pwd`'
+docker run -it -v `pwd`:/data -w /data/`ls | grep mosquitto-*` sanji/mosquitto-dev:armhf debuild --no-lintian -us -uc
+docker run -it -v `pwd`:/data -w /data/`ls | grep mosquitto-*` sanji/mosquitto-dev:latest debuild --no-lintian -us -uc
