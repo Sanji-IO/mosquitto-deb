@@ -16,17 +16,17 @@ export SRCNAME=`ls mosquitto_*orig*.gz`
 export DEBIANNAME=`ls mosquitto_*.debian.tar.xz`
 export FOLDER=${SRCNAME::-12}
 tar zxvf ${SRCNAME}
-tar xvf ${DEBIANNAME} -C `ls | grep mosquitto-*`
-
-# Build armhf packages
-docker run --entrypoint /usr/bin/qemu-arm-static -it \
-    -v `pwd`/qemu-execve:/usr/bin/qemu-arm-static \
-    -v `pwd`:/data \
-    -w /data/`ls | grep mosquitto-*` \
-    sanji/mosquitto-dev:armhf /bin/sh -c "debuild --no-lintian -us -uc"
+export SRCFOLDER=`ls | grep mosquitto-*`
+tar xvf ${DEBIANNAME} -C "$SRCFOLDER"
 
 # Build amd64 packages
 docker run -it -v `pwd`:/data \
-    -w /data/`ls | grep mosquitto-*` \
+    -w /data/$SRCFOLDER \
     sanji/mosquitto-dev:latest /bin/sh -c "debuild --no-lintian -us -uc"
 
+# Build armhf
+docker run --entrypoint /usr/bin/qemu-arm-static -it \
+    -v `pwd`/qemu-execve:/usr/bin/qemu-arm-static \
+    -v `pwd`:/data \
+    -w /data/$SRCFOLDER \
+    sanji/mosquitto-dev:armhf /bin/sh -c "debuild --no-lintian -us -uc"

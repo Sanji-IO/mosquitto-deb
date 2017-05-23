@@ -6,7 +6,6 @@ before_install:
 - docker pull sanji/mosquitto-dev:latest
 - docker pull sanji/mosquitto-dev:armhf
 - docker run --rm --privileged multiarch/qemu-user-static:register
-- wget https://github.com/resin-io/qemu/releases/download/v2.5.50-resin-execve/qemu-execve.gz && gzip -d qemu-execve.gz
 script:
 - bash build.sh
 deploy:
