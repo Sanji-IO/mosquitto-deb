@@ -6,7 +6,7 @@ ADD . /data
 
 WORKDIR /data
 
-RUN cd `ls | grep mosquitto-*` && \
+RUN cd mosquitto-1.4.11 && \
 	debuild --no-lintian -us -uc
 
 RUN [ "cross-build-end" ]
