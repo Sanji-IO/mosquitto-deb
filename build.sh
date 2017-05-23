@@ -10,7 +10,6 @@ mkdir -p workspace
 cd workspace
 wget https://github.com/resin-io/qemu/releases/download/v2.5.50-resin-execve/qemu-execve.gz && gzip -d qemu-execve.gz
 chmod +x qemu-execve
-cp ../Dockerfile .
 curl -O ${MOSQ_SRC_URL}
 curl -O ${MOSQ_DEBIAN_URL}
 export SRCNAME=`ls mosquitto_*orig*.gz`
