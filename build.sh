@@ -16,6 +16,6 @@ export FOLDER=${SRCNAME::-12}
 tar zxvf ${SRCNAME}
 tar xvf ${DEBIANNAME} -C `ls | grep mosquitto-*`
 
-# Build x86 and arm packages
+# Build amd64 and arm packages
+docker run -it -v `pwd`:/data -w /data/`ls | grep mosquitto-*` sanji/mosquitto-dev:armhf sh -c "/usr/bin/cross-build-start && debuild --no-lintian -us -uc"
 docker run -it -v `pwd`:/data -w /data/`ls | grep mosquitto-*` sanji/mosquitto-dev:latest debuild --no-lintian -us -uc
-docker run -it -v `pwd`:/data -w /data/`ls | grep mosquitto-*` sanji/mosquitto-dev:armhf debuild --no-lintian -us -uc
