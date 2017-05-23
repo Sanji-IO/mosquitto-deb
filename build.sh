@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -x
 set -e
@@ -21,5 +21,5 @@ tar xvf ${DEBIANNAME} -C `ls | grep mosquitto-*`
 # 'docker build -t mosquitto-arm .
 # docker run --name temp-container-name mosquitto-arm /bin/true
 # docker cp temp-container-name:/data `pwd`'
-docker run -it -v `pwd`:/data -w /data/`ls | grep mosquitto-*` sanji/mosquitto-dev:armhf debuild --no-lintian -us -uc
+docker run -it -v `pwd`:/data -w /data/`ls | grep mosquitto-*` --entrypoint /bin/sh.real sanji/mosquitto-dev:armhf debuild --no-lintian -us -uc
 docker run -it -v `pwd`:/data -w /data/`ls | grep mosquitto-*` sanji/mosquitto-dev:latest debuild --no-lintian -us -uc
