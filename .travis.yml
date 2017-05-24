@@ -6,9 +6,9 @@ env:
 services:
 - docker
 script:
-- bash build.sh
+- ./build.sh
 before_deploy:
-- pre_deploy.sh
+- ./pre_deploy.sh
 deploy:
 - provider: releases
   skip_cleanup: true
