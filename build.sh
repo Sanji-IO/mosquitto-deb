@@ -19,12 +19,17 @@ tar xvf ${DEBIANNAME} -C "$SRCFOLDER"
 patch $SRCFOLDER/debian/rules < ../patches/rule.patch
 
 # Build amd64 packages
-docker run -it -v `pwd`:/data \
-    -w /data/$SRCFOLDER \
-    sanji/mosquitto-dev:latest /bin/sh -c "debuild --no-lintian -us -uc"
+if [ "$ARCH" = "amd64" ]; then
+    docker run -it -v `pwd`:/data \
+        -w /data/$SRCFOLDER \
+        sanji/mosquitto-dev:latest /bin/sh -c "debuild --no-lintian -us -uc"
+fi
 
 # Build armhf
-docker run --entrypoint /usr/bin/qemu-arm-static -it \
-    -v `pwd`:/data \
-    -w /data/$SRCFOLDER \
-    sanji/mosquitto-dev:armhf /bin/sh -c "debuild --no-lintian -us -uc"
+if [ "$ARCH" = "armhf" ]; then
+    docker run --entrypoint /usr/bin/qemu-arm-static -it \
+        -v `pwd`:/data \
+        -w /data/$SRCFOLDER \
+        sanji/mosquitto-dev:armhf /bin/sh -c "debuild --no-lintian -us -uc"
+fi
+
