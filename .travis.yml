@@ -5,9 +5,6 @@ env:
 - ARCH=armhf
 services:
 - docker
-before_install:
-- docker pull sanji/mosquitto-dev:latest
-- docker pull sanji/mosquitto-dev:armhf
 script:
 - bash build.sh
 deploy:
