@@ -7,6 +7,8 @@ services:
 - docker
 script:
 - bash build.sh
+before_deploy:
+- cat travis_bintray_deb.json.tmpl | sed  "s/\$VERSION/`git show --format=%h --no-patch`/g" > travis_bintray_deb_amd64.json
 deploy:
 - provider: releases
   skip_cleanup: true
@@ -21,7 +23,6 @@ deploy:
 - provider: bintray
   file: travis_bintray_deb_amd64.json
   user: yulun
-  dry-run: true
   on:
     condition: $ARCH = amd64
   key:
