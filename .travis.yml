@@ -1,14 +1,20 @@
 sudo: required
+
 language: python
+
 env:
 - ARCH=amd64
 - ARCH=armhf
+
 services:
 - docker
+
 script:
 - ./build.sh
+
 before_deploy:
 - ./pre_deploy.sh
+
 deploy:
 - provider: releases
   skip_cleanup: true
@@ -24,6 +30,16 @@ deploy:
   file: travis_bintray_deb_amd64.json
   user: yulun
   on:
+    repo: Sanji-IO/mosquitto-deb
     condition: $ARCH = amd64
+  key:
+    secure: s5MLdBxFW3IIokmVCqZ7FMCQy+NSRdqGsUIk60ESMH+F5nnOeEX2+pN7hhj1cS6ezGSH/jmrzw9npd8/S9hr+AQjcJNnKDLLGIeKfhqPYvQ0kpgwvsPs0mVMlBHsDPEKisMI5Fg9wOjpDFTjsKnMNuVGaXt31IwI7YCvisAEO89tzPdY+LWn7dA2mhJB7cagfSVVwJasyyBzv/UrCnecgDzTIsOBp26b0//B0K+1ZFrQAnH+39Rk65JxSojoN/M7z4xBvpMwd2nUFrZinNg+lLS7RDF3AY6UA0G/G9+esIeV27SK9v/le9f6COwUMyg/vg93xQdYQ+Y1YJBxYL+2Z2yofI9/26DvgjvTLcUCX8/i20fRcJjOZlD80tYOm9KDPGXeCH1oX4/3e1Vdz/56ZkUXbnAoZpsyJbiJwG7fDJq77rzxp+o0sjKX10vQjm/c0SYa+knx6td/1GIGywTxfH29/kFFGUqYIfjTi7atxURHMN3gHt3TvpEhkJuf+ik4SAnrYGTis9tem4OxXx1CO9CZhkEs0/LSBVJkkOGla/N2C2wDxdDjEYmZtIO/LUUvaoBJDuyiLp/tMp7i/hszEGGZ+iou4ddguQdzRRvf7YfnumV4y76dckZdMJOflUN9Bj9cXmcr1Sv3B/AWVKdchjeQjj2esCWh/4tPvwKP14U=
+
+- provider: bintray
+  file: travis_bintray_deb_armhf.json
+  user: yulun
+  on:
+    repo: Sanji-IO/mosquitto-deb
+    condition: $ARCH = armhf
   key:
     secure: s5MLdBxFW3IIokmVCqZ7FMCQy+NSRdqGsUIk60ESMH+F5nnOeEX2+pN7hhj1cS6ezGSH/jmrzw9npd8/S9hr+AQjcJNnKDLLGIeKfhqPYvQ0kpgwvsPs0mVMlBHsDPEKisMI5Fg9wOjpDFTjsKnMNuVGaXt31IwI7YCvisAEO89tzPdY+LWn7dA2mhJB7cagfSVVwJasyyBzv/UrCnecgDzTIsOBp26b0//B0K+1ZFrQAnH+39Rk65JxSojoN/M7z4xBvpMwd2nUFrZinNg+lLS7RDF3AY6UA0G/G9+esIeV27SK9v/le9f6COwUMyg/vg93xQdYQ+Y1YJBxYL+2Z2yofI9/26DvgjvTLcUCX8/i20fRcJjOZlD80tYOm9KDPGXeCH1oX4/3e1Vdz/56ZkUXbnAoZpsyJbiJwG7fDJq77rzxp+o0sjKX10vQjm/c0SYa+knx6td/1GIGywTxfH29/kFFGUqYIfjTi7atxURHMN3gHt3TvpEhkJuf+ik4SAnrYGTis9tem4OxXx1CO9CZhkEs0/LSBVJkkOGla/N2C2wDxdDjEYmZtIO/LUUvaoBJDuyiLp/tMp7i/hszEGGZ+iou4ddguQdzRRvf7YfnumV4y76dckZdMJOflUN9Bj9cXmcr1Sv3B/AWVKdchjeQjj2esCWh/4tPvwKP14U=
